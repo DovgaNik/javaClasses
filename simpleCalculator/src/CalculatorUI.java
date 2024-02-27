@@ -9,7 +9,7 @@ public class CalculatorUI {
         CalculatorUI ui = new CalculatorUI();
         Calculator calculator = ui.readCalculator();
         
-        String[] options = {"Change First Number", "Change Second Number","+","-","*","/","Exit"};
+        String[] options = {"Change First Number", "Change Second Number","+","-","*","/", "^", "Exit"};
         
         while (true){
             try {
@@ -56,7 +56,12 @@ public class CalculatorUI {
                 System.out.println(calculator.getFirstNumber() + " / " + calculator.getSecondNumber() + "= " + result);
             
             }
-            case 7 -> System.exit(0);
+
+            case 7 -> {
+                double result = calculator.pow();
+                System.out.println(calculator.getFirstNumber() + "^" + calculator.getSecondNumber() + "= " + result);
+            }
+            case 8 -> System.exit(0);
         
         }
         
@@ -64,7 +69,7 @@ public class CalculatorUI {
 
     public int choiceValidator(int choice) throws Exception {
 
-        if (choice >= 1 && choice <= 7)
+        if (choice >= 1 && choice <= 8)
             return choice;
         else
             throw new Exception("Invalid choice input");

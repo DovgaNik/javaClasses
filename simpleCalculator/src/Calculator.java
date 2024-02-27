@@ -35,5 +35,9 @@ public class Calculator {
     }
     public double division() {        
         return this.firstNumber / this.secondNumber;
-    }    
+    }
+
+    public double pow () {
+        return Math.pow(firstNumber, this.secondNumber);
+    }
 }
