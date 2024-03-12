@@ -1,12 +1,45 @@
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
+
 public class Document {
+
+    public Document (String name, String documentNumber, Date issueDate, String issuer) {
+
+        this.name = name;
+        this.documentNumber = documentNumber;
+        this.issueDate = issueDate;
+        this.issuer = issuer;
+
+        isExpiring = false;
+    }
+
+    public Document (String name, String documentNumber, Date issueDate, String issuer, Date expiryDate) {
+
+        this.name = name;
+        this.documentNumber = documentNumber;
+        this.issueDate = issueDate;
+        this.issuer = issuer;
+
+        if (expiryDate.compareTo(issueDate) > 0) {
+            this.expiryDate = expiryDate;
+            isExpiring = true;
+        } else {
+            throw new IllegalArgumentException("The expiry date cannot be before issue date");
+        }
+
+    }
+
+    //<editor-fold desc="Fields">
+    //<editor-fold desc="private vars">
     private String name;
     private String documentNumber;
     private Date issueDate;
     private Date expiryDate;
     private Boolean isExpiring;
     private String issuer;
+    //</editor-fold>
 
+    //<editor-fold desc="getters and setters">
     public String getName() {
         return name;
     }
@@ -65,10 +98,10 @@ public class Document {
     public void setIssuer(String issuer) {
         this.issuer = issuer;
     }
+    //</editor-fold>
+    //</editor-fold>
 
-
-
-
+    //<editor-fold desc="Methods">
     public String toString() {
         if (isExpiring)
             return "The document " + name + " has been issued by " + issuer + " on the date of " + issueDate + " it has the number of " + documentNumber + " and it expires on " + expiryDate;
@@ -77,10 +110,15 @@ public class Document {
     }
 
     public int daysUntillExpiry(){
-        return 1;
+        Date now = new Date();
+        long difference = expiryDate.getTime() - now.getTime();
+        return (int)TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
+
     }
 
     public int documentValidityLength(){
-        return 1;
+        long difference = expiryDate.getTime() - issueDate.getTime();
+        return (int)TimeUnit.DAYS.convert(difference, TimeUnit.MILLISECONDS);
     }
+    //</editor-fold>
 }
