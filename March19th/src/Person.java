@@ -1,4 +1,4 @@
-public class Person {
+public class Person implements Traveller {
     private String name;
     private double speed;
 

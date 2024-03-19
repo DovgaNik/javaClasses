@@ -1,4 +1,4 @@
-public class Car {
+public class Car implements Traveller{
     private String make;
     private double speed;
 
